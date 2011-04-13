@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "window.h"
+#include <iostream>
 
 using namespace std;
 
@@ -68,8 +69,11 @@ void Window::show(int x, int y, int width, int height)
 {
     if(m_window)
         return;
-    
+
     m_window = newwin(height, width, y, x);
+    if (!m_window) { //newwin didn't allocate a new WINDOW
+        std::cerr << "Error: newwin() was unable to create a new window." << std::endl;
+    }
     clear();
     refresh();
     
